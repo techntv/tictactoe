@@ -49,11 +49,14 @@ table {
     margin: 10px 5px;
     text-align: center; }
   .container table {
-    margin: 0 auto;
-    position: relative; }
+    margin: 0 auto; }
     .container table td {
       width: 100px;
       height: 100px;
-      border: solid 1px black; }
+      border: solid 1px black;
+      text-align: center;
+      display: table-cell;
+      vertical-align: middle;
+      font-size: 65px; }
 
 /*# sourceMappingURL=style.css.map */
