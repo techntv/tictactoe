@@ -1,4 +1,7 @@
 @import "reset";
+*{
+  box-sizing: border-box;
+}
 .container{
   width: 90%;
   margin: 0 auto;
@@ -7,9 +10,19 @@
         margin: 40px 5px;
         text-align: center;
       } //end header
+} // end container
 
-      table{
-        margin: 0 auto;
+      .board{
+
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        margin: auto;
+        width: 300px;
+        height: 300px;
+        border: solid 10px orange;
 
             td{
               cursor: pointer;
@@ -19,7 +32,7 @@
               text-align: center;
               display: table-cell;
               vertical-align: middle;
-              font-size: 65px;
+              font-size: 50px;
             }
 
       } // end table
@@ -44,7 +57,7 @@
         }
 
       }
-} // end container
+
 
 
 #modal{
@@ -56,5 +69,20 @@
   margin: auto;
   width: 300px;
   height: 300px;
-  background: rgba(0,0,0,0.5);
+  background: deepskyblue;
+  z-index: 100;
+
+  .modalPlayer{
+    text-align: center;
+    color: white;
+
+    h2{
+      font-size: 30px;
+      margin: 15px 5px;
+    }
+    .form-item{
+      margin: 10px 5px;
+      font-size: 25px;
+    }
+  }
 }

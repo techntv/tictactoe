@@ -2,20 +2,28 @@
   "use strict";
 
   var tableContent = document.getElementsByTagName('td');
-  var modalHTML = "<form class='modalcontent'>";
-  modalHTML += "<h2>Choose sign for player</h2>";
-  modalHTML += "<input type='checkbox' id='xplayer'><span>Choose X</span>";
-  modalHTML += "<input type='checkbox' id='oplayer'><span>Choose O</span>";
-  modalHTML += "</form>";
+
+  var modalPlayerHTML = "<form class='modalPlayer'>";
+  modalPlayerHTML += "<h2>How do you want to play ? </h2>";
+  modalPlayerHTML += "<div class='form-item' id='oneplayer'>One Player</div>";
+  modalPlayerHTML += "<div class='form-item' id='twoplayer'>Two Player</div>";
+  modalPlayerHTML += "</form>";
+
+
 
   window.onload = function (){
-    var modalGame = document.createElement('div');
+    var modalPlayer = document.createElement('div');
+    var modalSign = document.createElement('div');
     var container = document.getElementsByClassName('container')[0];
 
-    document.body.insertBefore(modalGame, container.nextSibling);
-    modalGame.style.display = "none";
-    modalGame.setAttribute('id', 'modal');
-    modalGame.innerHTML = modalHTML;
+    document.body.insertBefore(modalPlayer, container.nextSibling);
+    document.body.insertBefore(modalSign, container.nextSibling);
+
+    modalPlayer.style.display = "none";
+    modalPlayer.setAttribute('id', 'modal');
+    modalPlayer.innerHTML = modalPlayerHTML;
+
+
   }
 
 
