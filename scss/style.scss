@@ -4,15 +4,15 @@
   margin: 0 auto;
       h1{
         font-size: 35px;
-        margin: 10px 5px;
+        margin: 40px 5px;
         text-align: center;
       } //end header
 
       table{
         margin: 0 auto;
 
-
             td{
+              cursor: pointer;
               width: 100px;
               height: 100px;
               border: solid 1px black;
