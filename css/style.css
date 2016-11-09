@@ -88,7 +88,7 @@ table {
       background: deepskyblue;
       color: white; }
 
-#modal {
+#modal, #modalsign {
   position: absolute;
   top: 0;
   left: 0;
@@ -99,14 +99,24 @@ table {
   height: 300px;
   background: deepskyblue;
   z-index: 100; }
-  #modal .modalPlayer {
+  #modal .modalPlayer, #modalsign .modalPlayer, #modalsign .modalSigner {
     text-align: center;
     color: white; }
-    #modal .modalPlayer h2 {
+    #modal .modalPlayer h2, #modalsign .modalPlayer h2, #modalsign .modalSigner h2 {
       font-size: 30px;
       margin: 15px 5px; }
-    #modal .modalPlayer .form-item {
+    #modal .modalPlayer .form-item, #modalsign .modalPlayer .form-item, #modalsign .modalSigner .form-item {
       margin: 10px 5px;
       font-size: 25px; }
+    #modal .modalPlayer .player:hover, #modalsign .modalPlayer .player:hover, #modalsign .modalSigner .player:hover {
+      cursor: pointer; }
+
+#modalsign {
+  z-index: 90; }
+  #modalsign .signer {
+    display: inline-block;
+    font-size: 20px; }
+    #modalsign .signer:hover {
+      cursor: pointer; }
 
 /*# sourceMappingURL=style.css.map */
