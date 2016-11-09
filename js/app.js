@@ -75,6 +75,9 @@
 
         cleanArr(positionX);
         cleanArr(positionO);
+        //console.log(positionX);
+        testGame(positionX);
+
 
 
 
@@ -83,7 +86,7 @@
 function cleanArr(arr){
       arr.map(function(item,jindex){
         arr.map(function(value,kindex){
-          if(item == value && jindex != kindex){
+          if(item === value && jindex !== kindex){
             arr[kindex].splice(kindex,1);
           }
         })
@@ -93,8 +96,16 @@ function cleanArr(arr){
 } // end cleanArr
 
 function testGame(arr){
-
+    var winner = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+    var count = 0;
+    var res = [];
+for (var i = 0; i < winner.length; i++) {
+  if(winner[i] === arr){
+    console.log('ok');
+  }
 }
+//console.log(arr);
+} //end testGame
 
 function resetBoard(){
   contentGame.map(function(item){
