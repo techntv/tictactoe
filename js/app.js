@@ -47,38 +47,53 @@
   function playGame(e){
     var target = e.target;
     var positionX = [];
-
+    var positionO = [];
     flag++;
 
-    switch (signer) {
-      case 'X':
-            flag % 2 != 0 ? target.textContent = 'X': target.textContent = 'O';
-            break;
-      case 'O':
-            flag % 2 != 0 ? target.textContent = 'O': target.textContent = 'X';
-        break;
-      default: return false;
-    }
-        contentGame.map(function(item,index){
-          if (item.textContent === 'X') {
-            positionX.push(index);
+    if (target.textContent === '') {
+          switch (signer) {
+            case 'X':
+                  flag % 2 != 0 ? target.textContent = 'X': target.textContent = 'O';
+                  break;
+            case 'O':
+                  flag % 2 != 0 ? target.textContent = 'O': target.textContent = 'X';
+              break;
+            default: return false;
           }
-        });
+        }
+      contentGame.map(function(item,index){
+        switch (item.textContent ) {
+          case 'X':
+              positionX.push(index);
+            break;
+            case 'O':
+                positionO.push(index);
+              break;
+          default: return false;
+        }
+      });
 
-        positionX.map(function(item,jindex){
-          positionX.map(function(value,kindex){
-            if(item == value && jindex != kindex){
-              positionX[kindex].splice(kindex,1);
-            }
-          })
-        });
-        console.log(positionX);
+        cleanArr(positionX);
+        cleanArr(positionO);
+
 
 
   } // end playGame
 
+function cleanArr(arr){
+      arr.map(function(item,jindex){
+        arr.map(function(value,kindex){
+          if(item == value && jindex != kindex){
+            arr[kindex].splice(kindex,1);
+          }
+        })
+      });
+
+      return arr;
+} // end cleanArr
+
 function testGame(arr){
-  
+
 }
 
 function resetBoard(){
