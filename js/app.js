@@ -1,7 +1,8 @@
 (function(){
   "use strict";
   var tableContent = document.getElementsByTagName('td');
-  var player,signer;
+  var player,signer,flag = 0;
+
 
   var modalPlayerHTML = "<form class='modalPlayer'>";
   modalPlayerHTML += "<h2>How do you want to play ? </h2>";
@@ -30,6 +31,8 @@
     modalSign.style.display = "none";
     modalSign.setAttribute('id', 'modalsign');
     modalSign.innerHTML = modalSignHTML;
+
+
   }
 
   function handleNewGame(){
@@ -40,48 +43,95 @@
     optionsBoard();
   }
 
-  function playGame(){
-    
-  }
+  function playGame(e){
+    var target = e.target;
+    var positionX = [];
+    flag++;
+
+    switch (signer) {
+      case 'X':
+            flag % 2 != 0 ? target.textContent = 'X': target.textContent = 'O';
+            break;
+      case 'O':
+            flag % 2 != 0 ? target.textContent = 'O': target.textContent = 'X';
+        break;
+      default: return false;
+    }
+
+
+        for (var i = tableContent.length; i--;){
+          if (tableContent[i].textContent === "X") {
+            positionX.push(i);
+          }
+        }
+
+        // for (var k = 0; i < positionX.length; i++) {
+        //   for (var j = 0; i < positionX.length; i++) {
+        //     if (positionX[k] == positionX[j] && k !== j) {
+        //       positionX[j].splice(j,1);
+        //     }
+        //   }
+        // }
+        positionX.map(function(item,jindex){
+          positionX.map(function(value,kindex){
+            if(item == value && jindex != kindex){
+              positionX[kindex].splice(kindex,1);
+            }
+          })
+        });
+        console.log(positionX);
+  } // end playGame
+
+function testGame(){
+
+}
 
 function resetBoard(){
   var i;
   for (i = tableContent.length ; i--;) {
     tableContent[i].textContent = '';
   }
-}
 
-function optionsBoard(){
+} //end resetBoard
 
-  var player = document.getElementsByClassName('player'),
-      signer = document.getElementsByClassName('signer'),
+      function getPlayer(e){
+        var target = e.target,
+        choosePlay = document.getElementById('modal'),
+        chooseSign = document.getElementById('modalsign');
+
+        target.textContent === 'One Player' ? player = 'One Player' : player = 'Two Player';
+        choosePlay.style.display = 'none';
+        chooseSign.style.display = 'block';
+      } // end getPlayer
+
+      function getSigner(e){
+        var target = e.target,
+        choosePlay = document.getElementById('modal'),
+        chooseSign = document.getElementById('modalsign');
+        target.textContent === 'X' ? signer = 'X' : signer = 'O';
+        chooseSign.style.display = 'none';
+      } // end getSigner
+
+    function optionsBoard(){
+      var players = document.getElementsByClassName('player'),
+      signers = document.getElementsByClassName('signer'),
       choosePlay = document.getElementById('modal'),
       chooseSign = document.getElementById('modalsign'),
       i;
+      choosePlay.style.display = 'block';
 
-      function getPlayer(e){
-        var target = e.target;
-        target.textContent === 'One Player' ? player = 'One Player' : player = 'Two Player';
-        console.log(player);
-        choosePlay.style.display = 'none';
-        chooseSign.style.display = 'block';
+      for (i = players.length; i--;) {
+        players[i].addEventListener('click', getPlayer);
+      }
+      for (i = signers.length; i--;) {
+        signers[i].addEventListener('click', getSigner);
       }
 
-      function getSigner(e){
-        var target = e.target;
-        target.textContent === 'X' ? signer = 'X' : signer = 'O';
-        console.log(signer);
-        chooseSign.style.display = 'none';
-      }
+    } // end optionsBoard
 
-  choosePlay.style.display = 'block';
-  for (i = player.length; i--;) {
-    player[i].addEventListener('click', getPlayer);
-  }
-  for (i = signer.length; i--;) {
-    signer[i].addEventListener('click', getSigner);
-  }
-
-}
   document.getElementById('btn').addEventListener('click', handleNewGame);
-}());
+  for (var i = tableContent.length; i--;) {
+    tableContent[i].addEventListener('click', playGame);
+  }
+
+}()); // ens use strict
