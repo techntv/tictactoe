@@ -1,6 +1,7 @@
 (function(){
   "use strict";
-  var tableContent = document.getElementsByTagName('td');
+  var tableContent = document.getElementsByTagName('td'),
+      contentGame = Array.prototype.slice.call(tableContent);
   var player,signer,flag = 0;
 
 
@@ -46,6 +47,7 @@
   function playGame(e){
     var target = e.target;
     var positionX = [];
+
     flag++;
 
     switch (signer) {
@@ -57,21 +59,12 @@
         break;
       default: return false;
     }
-
-
-        for (var i = tableContent.length; i--;){
-          if (tableContent[i].textContent === "X") {
-            positionX.push(i);
+        contentGame.map(function(item,index){
+          if (item.textContent === 'X') {
+            positionX.push(index);
           }
-        }
+        });
 
-        // for (var k = 0; i < positionX.length; i++) {
-        //   for (var j = 0; i < positionX.length; i++) {
-        //     if (positionX[k] == positionX[j] && k !== j) {
-        //       positionX[j].splice(j,1);
-        //     }
-        //   }
-        // }
         positionX.map(function(item,jindex){
           positionX.map(function(value,kindex){
             if(item == value && jindex != kindex){
@@ -87,10 +80,9 @@ function testGame(){
 }
 
 function resetBoard(){
-  var i;
-  for (i = tableContent.length ; i--;) {
-    tableContent[i].textContent = '';
-  }
+  contentGame.map(function(item){
+    item.textContent = '';
+  })
 
 } //end resetBoard
 
@@ -130,8 +122,8 @@ function resetBoard(){
     } // end optionsBoard
 
   document.getElementById('btn').addEventListener('click', handleNewGame);
-  for (var i = tableContent.length; i--;) {
-    tableContent[i].addEventListener('click', playGame);
-  }
 
+  contentGame.map(function(item){
+    item.addEventListener('click', playGame);
+  })
 }()); // ens use strict
