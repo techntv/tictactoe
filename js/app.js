@@ -37,7 +37,7 @@
   }
 
   function handleNewGame(){
-    var i;
+
     // Reset content on board
     resetBoard();
     // Choose X or O
@@ -73,10 +73,12 @@
           })
         });
         console.log(positionX);
+
+
   } // end playGame
 
-function testGame(){
-
+function testGame(arr){
+  
 }
 
 function resetBoard(){
