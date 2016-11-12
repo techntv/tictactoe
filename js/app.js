@@ -93,11 +93,26 @@ function cleanArr(arr){
 } // end cleanArr
 
 function testGame(arr){
-    var winner = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+  var winner = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+  var res = [];
+  var flag;
+
+  for(var i = winner.length;i--;){
+    flag = 0;
+    for(var j = arr.length;j--;){
+      for(var k = winner[i].length;k--;){
+        if(winner[i][k] == arr[j]){
+          flag += 1;
+        }
+      }
+
+      if(flag === 3){
+        console.log('winner');
+      }
+    }
+  }
 
 } //end testGame
-
-
 
 function checkIfEqual(arr1, arr2) {
   if (arr1.length !== arr2.length) {
