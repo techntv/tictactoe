@@ -54,9 +54,11 @@
           switch (signer) {
             case 'X':
                   flag % 2 != 0 ? target.textContent = 'X': target.textContent = 'O';
+                  console.log(flag);
                   break;
             case 'O':
                   flag % 2 != 0 ? target.textContent = 'O': target.textContent = 'X';
+                  console.log(flag);
               break;
             default: return false;
           }
@@ -76,7 +78,13 @@
         cleanArr(positionX);
         cleanArr(positionO);
 
-        testGame(positionX);
+        if(testGame(positionX)){
+          console.log('X winner. End game');
+        }
+        if (testGame(positionO)) {
+        console.log("O winner. End game");
+        }
+
 
   } // end playGame
 
@@ -97,21 +105,22 @@ function testGame(arr){
   var res = [];
   var flag;
 
-  for(var i = winner.length;i--;){
-    flag = 0;
-    for(var j = arr.length;j--;){
-      for(var k = winner[i].length;k--;){
-        if(winner[i][k] == arr[j]){
-          flag += 1;
+    for(var i = winner.length;i--;){
+      flag = 0;
+      for(var j = arr.length;j--;){
+        for(var k = winner[i].length;k--;){
+          if(winner[i][k] == arr[j]){
+            flag += 1;
+          }
+        }
+
+        if(flag === 3){
+          return true;
         }
       }
-
-      if(flag === 3){
-        console.log('winner');
-      }
     }
-  }
 
+    return false;
 } //end testGame
 
 function checkIfEqual(arr1, arr2) {
@@ -126,7 +135,7 @@ function resetBoard(){
   contentGame.map(function(item){
     item.textContent = '';
   })
-
+  flag = 0;
 } //end resetBoard
 
       function getPlayer(e){
@@ -144,6 +153,7 @@ function resetBoard(){
         choosePlay = document.getElementById('modal'),
         chooseSign = document.getElementById('modalsign');
         target.textContent === 'X' ? signer = 'X' : signer = 'O';
+        console.log(signer);
         chooseSign.style.display = 'none';
       } // end getSigner
 
