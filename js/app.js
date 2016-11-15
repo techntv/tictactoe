@@ -17,13 +17,19 @@
   modalSignHTML += "<div class='form-item signer'>O</div>";
   modalSignHTML += "</form>";
 
+  var modalWinnerHTML = "<div class='modalWinner'>";
+  modalWinnerHTML += "<h2> Congratulation. You are winner </h2>";
+  modalWinnerHTML += "</div>";
+
   window.onload = function (){
-    var modalPlayer = document.createElement('div');
-    var modalSign = document.createElement('div');
-    var container = document.getElementsByClassName('container')[0];
+    var modalPlayer = document.createElement('div'),
+     modalSign = document.createElement('div'),
+     modalWinner = document.createElement('div'),
+     container = document.getElementsByClassName('container')[0];
 
     document.body.insertBefore(modalPlayer, container.nextSibling);
     document.body.insertBefore(modalSign, container.nextSibling);
+    document.body.insertBefore(modalWinner, container.nextSibling);
 
     modalPlayer.style.display = "none";
     modalPlayer.setAttribute('id', 'modal');
@@ -32,6 +38,10 @@
     modalSign.style.display = "none";
     modalSign.setAttribute('id', 'modalsign');
     modalSign.innerHTML = modalSignHTML;
+
+    modalWinner.style.display = "none";
+    modalWinner.setAttribute('id', 'modalwinner');
+    modalWinner.innerHTML = modalWinnerHTML;
 
 
   }
@@ -48,18 +58,22 @@
     var target = e.target;
     var positionX = [];
     var positionO = [];
-    flag++;
+    var controlPlayer = '';
+
+
 
     if (target.textContent === '') {
+      flag++;
+
           switch (signer) {
             case 'X':
-                  flag % 2 != 0 ? target.textContent = 'X': target.textContent = 'O';
-                  console.log(flag);
+                  flag % 2 != 0 ? target.textContent = 'X' : target.textContent = 'O';
+                  console.log(controlPlayer);
                   break;
             case 'O':
-                  flag % 2 != 0 ? target.textContent = 'O': target.textContent = 'X';
-                  console.log(flag);
-              break;
+                  flag % 2 != 0 ?target.textContent = 'O': target.textContent = 'X';
+                    console.log(controlPlayer);
+                  break;
             default: return false;
           }
         }
@@ -78,13 +92,17 @@
         cleanArr(positionX);
         cleanArr(positionO);
 
-        if(testGame(positionX)){
-          console.log('X winner. End game');
+        if(testGame(positionX) && signer === 'X'){
+          console.log(firstPlayer + ' winner. End game');
+          resetBoard();
+          getWinner();
         }
-        if (testGame(positionO)) {
-        console.log("O winner. End game");
+        if (testGame(positionO) && signer === 'O') {
+        console.log(firstPlayer + " winner. End game");
+        resetBoard();
+        getWinner();
         }
-
+console.log(firstPlayer);
 
   } // end playGame
 
@@ -123,20 +141,28 @@ function testGame(arr){
     return false;
 } //end testGame
 
-function checkIfEqual(arr1, arr2) {
-  if (arr1.length !== arr2.length) {
-    return false;
-  }
-  //sort them first, then join them and just compare the strings
-  return arr1.sort().join() === arr2.sort().join();
-}
+// function checkIfEqual(arr1, arr2) {
+//   if (arr1.length !== arr2.length) {
+//     return false;
+//   }
+//   //sort them first, then join them and just compare the strings
+//   return arr1.sort().join() === arr2.sort().join();
+// }
 
 function resetBoard(){
+  var winner = document.getElementById('modalwinner');
   contentGame.map(function(item){
     item.textContent = '';
   })
   flag = 0;
+  winner.style.display = 'none';
 } //end resetBoard
+
+      function getWinner(){
+        var winner = document.getElementById('modalwinner');
+
+        winner.style.display = "block";
+      }
 
       function getPlayer(e){
         var target = e.target,
@@ -146,6 +172,7 @@ function resetBoard(){
         target.textContent === 'One Player' ? player = 'One Player' : player = 'Two Player';
         choosePlay.style.display = 'none';
         chooseSign.style.display = 'block';
+        console.log(player);
       } // end getPlayer
 
       function getSigner(e){
