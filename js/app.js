@@ -55,54 +55,89 @@
   }
 
   function playGame(e){
-    var target = e.target;
-    var positionX = [];
-    var positionO = [];
-    var controlPlayer = '';
+    var target = e.target,
+        positionX = [],
+        positionO = [],
+        controlPlayer = '';
 
 
+    // Player Options
+    switch (player) {
+      case "Two Player":
+            playWithHuman();
+        break;
+      case "One Player":
+              playWithComputer();
+        break;
+      default:
 
-    if (target.textContent === '') {
-      flag++;
+    }
 
-          switch (signer) {
-            case 'X':
-                  flag % 2 != 0 ? target.textContent = 'X' : target.textContent = 'O';
-                  console.log(controlPlayer);
-                  break;
-            case 'O':
-                  flag % 2 != 0 ?target.textContent = 'O': target.textContent = 'X';
-                    console.log(controlPlayer);
-                  break;
-            default: return false;
-          }
-        }
+    // Get position
+    function getPosition(){
       contentGame.map(function(item,index){
         switch (item.textContent ) {
           case 'X':
               positionX.push(index);
+              cleanArr(positionX);
+
+              if(testGame(positionX)){
+                console.log(controlPlayer + " - X - winner");
+                resetBoard();
+                getWinner(controlPlayer + " - X - winner");
+              }
             break;
             case 'O':
                 positionO.push(index);
+                cleanArr(positionO);
+
+                if (testGame(positionO)) {
+                  console.log(controlPlayer + " - O - winner");
+                  resetBoard();
+                  getWinner(controlPlayer + " - O - winner");
+                }
               break;
           default: return false;
         }
       });
+    }
 
-        cleanArr(positionX);
-        cleanArr(positionO);
+    // Play with Human
+    function playWithHuman(){
+      if (target.textContent === '') {
+            flag++;
 
-        if(testGame(positionX) && signer === 'X'){
-          console.log(firstPlayer + ' winner. End game');
-          resetBoard();
-          getWinner();
+            switch (signer) {
+              case 'X':
+                      if (flag % 2 != 0) {
+                        target.textContent = 'X';
+                          controlPlayer = "Player 1";
+                      } else {
+                        target.textContent = 'O';
+                        controlPlayer = "Player 2";
+                      }
+                    break;
+              case 'O':
+                      if (flag % 2 != 0) {
+                        target.textContent = 'O';
+                          controlPlayer = "Player 1";
+                      } else {
+                        target.textContent = 'X';
+                        controlPlayer = "Player 2";
+                      }
+                    break;
+              default: return false;
+            }
         }
-        if (testGame(positionO) && signer === 'O') {
-        console.log(firstPlayer + " winner. End game");
-        resetBoard();
-        getWinner();
-        }
-console.log(firstPlayer);
+
+        getPosition();
+
+    } // end playwithHuman
+
+    // Play with Computer
+    function playWithComputer(){
+
+    } // end play with Computer
 
   } // end playGame
 
@@ -141,14 +176,6 @@ function testGame(arr){
     return false;
 } //end testGame
 
-// function checkIfEqual(arr1, arr2) {
-//   if (arr1.length !== arr2.length) {
-//     return false;
-//   }
-//   //sort them first, then join them and just compare the strings
-//   return arr1.sort().join() === arr2.sort().join();
-// }
-
 function resetBoard(){
   var winner = document.getElementById('modalwinner');
   contentGame.map(function(item){
@@ -158,11 +185,13 @@ function resetBoard(){
   winner.style.display = 'none';
 } //end resetBoard
 
-      function getWinner(){
-        var winner = document.getElementById('modalwinner');
+function getWinner(player){
+  var winner = document.getElementById('modalwinner');
+  var playerHTML = "<h1>" + player + "</h1>";
 
-        winner.style.display = "block";
-      }
+  winner.innerHTML = playerHTML;
+  winner.style.display = "block";
+} // end getWinner
 
       function getPlayer(e){
         var target = e.target,
@@ -206,4 +235,4 @@ function resetBoard(){
   contentGame.map(function(item){
     item.addEventListener('click', playGame);
   })
-}()); // ens use strict
+}()); // end use strict
