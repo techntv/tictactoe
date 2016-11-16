@@ -58,7 +58,8 @@
     var target = e.target,
         positionX = [],
         positionO = [],
-        controlPlayer = '';
+        controlPlayer = '',
+        length = contentGame.length;
 
 
     // Player Options
@@ -76,7 +77,7 @@
     // Get position
     function getPosition(){
       contentGame.map(function(item,index){
-        switch (item.textContent ) {
+        switch (item.textContent) {
           case 'X':
               positionX.push(index);
               cleanArr(positionX);
@@ -134,21 +135,66 @@
 
     } // end playwithHuman
 
+    function playWithComputer(){
+
+
+        if (target.textContent === '') {
+              flag++;
+
+              switch (signer) {
+                case 'X':
+                        if (flag % 2 != 0) {
+                            target.textContent = 'X';
+                            controlPlayer = "Human";
+                            flag++;
+                        }
+                      break;
+                case 'O':
+                        if (flag % 2 != 0) {
+                          target.textContent = 'O';
+                            controlPlayer = "Human";
+                            flag++;
+                        }
+                      break;
+                default:
+              }
+          }
+getPosition();
+  var position = [],
+      positionLength = position.length,
+      positionRandom = Math.floor(Math.random() * positionLength);
+
+contentGame.map(function(item, index){
+  if (item.textContent === '') {
+    position.push(index);
+  }
+});
+
+        switch (signer) {
+          case 'X':
+                  if (flag % 2 === 0 && flag < 10) {
+                      contentGame[position[positionRandom]].textContent = "O";
+                      controlPlayer = "Computer";
+                  }
+                break;
+          case 'O':
+                  if (flag % 2 === 0 && flag < 10) {
+                      contentGame[position[positionRandom]].textContent = "X";
+                      controlPlayer = "Computer";
+                  }
+                break;
+          default: return false;
+        }
+
+
+
+
+
+    } // end playWithComputer
 
   } // end playGame
 
-function playWithComputer(){
-  var position = [];
-  function getRandomInt(min, max) {
-      return Math.floor(Math.random() * (max - min + 1)) + min;
-    }
 
-    contentGame.map(function(item, index){
-      if (item.textContent === '') {
-        position.push(index);
-      }
-    })
-}
 function cleanArr(arr){
       arr.map(function(item,jindex){
         arr.map(function(value,kindex){
