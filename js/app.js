@@ -134,13 +134,21 @@
 
     } // end playwithHuman
 
-    // Play with Computer
-    function playWithComputer(){
-
-    } // end play with Computer
 
   } // end playGame
 
+function playWithComputer(){
+  var position = [];
+  function getRandomInt(min, max) {
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    contentGame.map(function(item, index){
+      if (item.textContent === '') {
+        position.push(index);
+      }
+    })
+}
 function cleanArr(arr){
       arr.map(function(item,jindex){
         arr.map(function(value,kindex){
@@ -235,4 +243,6 @@ function getWinner(player){
   contentGame.map(function(item){
     item.addEventListener('click', playGame);
   })
+
+
 }()); // end use strict
