@@ -59,7 +59,7 @@
         positionX = [],
         positionO = [],
         controlPlayer = '',
-        length = contentGame.length;
+        draw = [];
 
 
     // Player Options
@@ -77,25 +77,55 @@
     // Get position
     function getPosition(){
       contentGame.map(function(item,index){
+        if (item.textContent) {
+          draw.push(index);
+        }
+        console.log(draw);
         switch (item.textContent) {
           case 'X':
               positionX.push(index);
               cleanArr(positionX);
 
-              if(testGame(positionX)){
+              if (getWinner(positionX) && player === "One Player") {
+                    if (signer === "X") {
+                      controlPlayer = "Human";
+                    } else {
+                      controlPlayer = "Computer";
+                    }
+              }
+
+              if(getWinner(positionX)){
                 console.log(controlPlayer + " - X - winner");
-                resetBoard();
-                getWinner(controlPlayer + " - X - winner");
+
+                //resetBoard();
+                //getWinner(controlPlayer + " - X - winner");
+              }
+
+              if (getWinner(positionX) === false && getWinner(positionO) === false && draw.length === 9) {
+                console.log('You are draw');
               }
             break;
             case 'O':
                 positionO.push(index);
                 cleanArr(positionO);
 
-                if (testGame(positionO)) {
+                if (getWinner(positionO) && player === "One Player") {
+                      if (signer === "O") {
+                        controlPlayer = "Human";
+                      } else {
+                        controlPlayer = "Computer";
+                      }
+                }
+
+                if (getWinner(positionO)) {
                   console.log(controlPlayer + " - O - winner");
-                  resetBoard();
-                  getWinner(controlPlayer + " - O - winner");
+
+                  //resetBoard();
+                  //getWinner(controlPlayer + " - O - winner");
+                }
+
+                if (getWinner(positionO) === false && getWinner(positionX) === false && draw.length === 9) {
+                  console.log('You are draw');
                 }
               break;
           default: return false;
@@ -112,10 +142,10 @@
               case 'X':
                       if (flag % 2 != 0) {
                         target.textContent = 'X';
-                          controlPlayer = "Player 1";
+                        controlPlayer = "Player 1";
                       } else {
                         target.textContent = 'O';
-                        controlPlayer = "Player 2";
+                          controlPlayer = "Player 2";
                       }
                     break;
               case 'O':
@@ -138,6 +168,7 @@
     function playWithComputer(){
 
 
+
         if (target.textContent === '') {
               flag++;
 
@@ -145,49 +176,46 @@
                 case 'X':
                         if (flag % 2 != 0) {
                             target.textContent = 'X';
-                            controlPlayer = "Human";
                             flag++;
+
+
+                            if (flag < 10) {
+                              setInterval(computerPlay("O"), 2000);
+                            }
                         }
                       break;
                 case 'O':
                         if (flag % 2 != 0) {
                           target.textContent = 'O';
-                            controlPlayer = "Human";
-                            flag++;
+                          flag++;
+
+                          if (flag < 10) {
+                            setInterval(computerPlay("X"), 2000);
+                          }
                         }
                       break;
-                default:
+                default: return false;
               }
           }
+
+          function computerPlay(sign){
+                var position = [],
+                    positionLength = 0,
+                    positionRandom = 0;
+
+              contentGame.map(function(item, index){
+                if (item.textContent === '') {
+                  position.push(index);
+                }
+              });
+                positionLength = position.length;
+                positionRandom = Math.floor(Math.random() * positionLength);
+
+                contentGame[position[positionRandom]].textContent = sign;
+          } // end computer Play
+
+
 getPosition();
-  var position = [],
-      positionLength = position.length,
-      positionRandom = Math.floor(Math.random() * positionLength);
-
-contentGame.map(function(item, index){
-  if (item.textContent === '') {
-    position.push(index);
-  }
-});
-
-        switch (signer) {
-          case 'X':
-                  if (flag % 2 === 0 && flag < 10) {
-                      contentGame[position[positionRandom]].textContent = "O";
-                      controlPlayer = "Computer";
-                  }
-                break;
-          case 'O':
-                  if (flag % 2 === 0 && flag < 10) {
-                      contentGame[position[positionRandom]].textContent = "X";
-                      controlPlayer = "Computer";
-                  }
-                break;
-          default: return false;
-        }
-
-
-
 
 
     } // end playWithComputer
@@ -207,7 +235,7 @@ function cleanArr(arr){
       return arr;
 } // end cleanArr
 
-function testGame(arr){
+function getWinner(arr){
   var winner = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
   var res = [];
   var flag;
@@ -239,13 +267,13 @@ function resetBoard(){
   winner.style.display = 'none';
 } //end resetBoard
 
-function getWinner(player){
+function printWinner(player){
   var winner = document.getElementById('modalwinner');
   var playerHTML = "<h1>" + player + "</h1>";
 
   winner.innerHTML = playerHTML;
   winner.style.display = "block";
-} // end getWinner
+} // end printWinner
 
       function getPlayer(e){
         var target = e.target,
@@ -278,6 +306,7 @@ function getWinner(player){
       for (i = players.length; i--;) {
         players[i].addEventListener('click', getPlayer);
       }
+
       for (i = signers.length; i--;) {
         signers[i].addEventListener('click', getSigner);
       }
