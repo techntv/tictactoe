@@ -111,4 +111,12 @@
 #modalwinner{
   @extend #modal;
   z-index: 95;
+  text-align: center;
+
+  h1{
+    color: white;
+    font-weight: bold;
+    padding-top: 2em;
+    font-size: 2em;
+  }
 }

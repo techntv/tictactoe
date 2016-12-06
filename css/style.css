@@ -120,6 +120,12 @@ table {
       cursor: pointer; }
 
 #modalwinner {
-  z-index: 95; }
+  z-index: 95;
+  text-align: center; }
+  #modalwinner h1 {
+    color: white;
+    font-weight: bold;
+    padding-top: 2em;
+    font-size: 2em; }
 
 /*# sourceMappingURL=style.css.map */
