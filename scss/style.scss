@@ -1,112 +1,106 @@
 @import "reset";
-*{
-  box-sizing: border-box;
-}
-.container{
-  width: 90%;
-  margin: 0 auto;
-      h1{
-        font-size: 35px;
-        margin: 40px 5px;
-        text-align: center;
-      } //end header
-} // end container
-
-      .board{
-
-        position: absolute;
-        top: 0;
-        left: 0;
-        bottom: 0;
-        right: 0;
-        margin: auto;
-        width: 300px;
-        height: 300px;
-        border: solid 10px orange;
-
-            td{
-              cursor: pointer;
-              width: 100px;
-              height: 100px;
-              border: solid 1px black;
-              text-align: center;
-              display: table-cell;
-              vertical-align: middle;
-              font-size: 50px;
-            }
-
-      } // end table
-
-      .controlgame{
-        text-align: center;
-        margin: 30px 5px;
-        #btn{
-          border: solid 2px deepskyblue;
-          padding: 10px 15px;
-          background: white;
-          font-size: 20px;
-          color: deepskyblue;
-          font-weight: bold;
-          transition: background 0.5s ease-out,color 0.4s;
-
-          &:hover{
-            cursor: pointer;
-            background: deepskyblue;
-            color: white;
-          }
-        }
-
-      }
-
-
-
-#modal{
+@mixin center_position($dimension) {
   position: absolute;
   top: 0;
   left: 0;
   bottom: 0;
   right: 0;
   margin: auto;
-  width: 300px;
-  height: 300px;
+  width: $dimension;
+  height: $dimension;
+}
+
+*{
+  box-sizing: border-box;
+}
+
+.container{
+  width: 90%;
+  margin: 0 auto;
+      h1{
+        font-size: 35px;
+        margin: 5px;
+        text-align: center;
+      } //end header
+} // end container
+
+.board{
+  @include center_position(300px);
+  border: solid 10px orange;
+
+      td{
+        cursor: pointer;
+        width: 100px;
+        height: 100px;
+        border: solid 1px black;
+        text-align: center;
+        display: table-cell;
+        vertical-align: middle;
+        font-size: 50px;
+      }
+
+} // end table
+
+.controlgame{
+  text-align: center;
+  //margin: 30px 5px;
+  #btn{
+      border: solid 2px deepskyblue;
+      padding: 10px 15px;
+      background: white;
+      font-size: 20px;
+      color: deepskyblue;
+      font-weight: bold;
+      transition: background 0.5s ease-out,color 0.4s;
+      margin: 10px;
+
+      &:hover{
+        cursor: pointer;
+        background: deepskyblue;
+        color: white;
+      }
+  }
+} // end controlgame
+
+#modal{
+  @include center_position(300px);
   background: deepskyblue;
   z-index: 100;
 
   .modalPlayer{
-    text-align: center;
-    color: white;
+      text-align: center;
+      color: white;
 
-    h2{
-      font-size: 30px;
-      margin: 15px 5px;
-    }
-    .form-item{
-      margin: 10px 5px;
-      font-size: 25px;
-    }
-
-    .player:hover{
-      cursor: pointer;
-    }
+      h2{
+        font-size: 30px;
+        margin: 15px 5px;
+      }
+      .form-item{
+        margin: 10px 5px;
+        font-size: 25px;
+      }
+      .player:hover{
+        cursor: pointer;
+      }
   } // end modalPlayer
 }
 
 #modalsign{
-  @extend #modal;
-  z-index: 90;
-  .modalSigner{
-    @extend .modalPlayer;
-  }
-
-  .signer{
-    display: inline-block;
-    font-size: 20px;
-
-    &:hover{
-      cursor: pointer;
+    @extend #modal;
+    z-index: 90;
+    .modalSigner{
+      @extend .modalPlayer;
     }
-  }
-}
+
+    .signer{
+      display: inline-block;
+      font-size: 20px;
+
+      &:hover{
+        cursor: pointer;
+      }
+    }
+} // end modalsign
 
 #modalwinner{
   @extend #modal;

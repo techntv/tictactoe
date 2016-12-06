@@ -102,7 +102,8 @@
               }
 
               if (getWinner(positionX) === false && getWinner(positionO) === false && draw.length === 9) {
-                console.log('You are draw');
+                //console.log('You are draw');
+                printWinner("You are draw");
               }
             break;
             case 'O':
