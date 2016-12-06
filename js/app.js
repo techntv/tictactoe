@@ -80,7 +80,7 @@
         if (item.textContent) {
           draw.push(index);
         }
-        console.log(draw);
+        // console.log(draw);
         switch (item.textContent) {
           case 'X':
               positionX.push(index);
@@ -95,10 +95,10 @@
               }
 
               if(getWinner(positionX)){
-                console.log(controlPlayer + " - X - winner");
+                //console.log(controlPlayer + " - X - winner");
 
-                //resetBoard();
-                //getWinner(controlPlayer + " - X - winner");
+                resetBoard();
+                printWinner(controlPlayer + " - X - winner");
               }
 
               if (getWinner(positionX) === false && getWinner(positionO) === false && draw.length === 9) {
@@ -118,14 +118,15 @@
                 }
 
                 if (getWinner(positionO)) {
-                  console.log(controlPlayer + " - O - winner");
+                  //console.log(controlPlayer + " - O - winner");
 
-                  //resetBoard();
-                  //getWinner(controlPlayer + " - O - winner");
+                  resetBoard();
+                  printWinner(controlPlayer + " - O - winner");
                 }
 
                 if (getWinner(positionO) === false && getWinner(positionX) === false && draw.length === 9) {
-                  console.log('You are draw');
+                  // console.log('You are draw');
+                  printWinner("You are draw");
                 }
               break;
           default: return false;
